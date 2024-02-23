@@ -1,0 +1,19 @@
+# Игнорировать все файлы
+*
+# Отменить игнорирование файлов с расширениями
+!*/
+!*.gitignore
+!*.txt
+*.vcxproj.FileListAbsolute.txt
+!*.h
+!*.hpp
+!*.c
+!*.cpp
+!*.pro
+!*.py
+!*.ui
+!*.sln
+!*.html
+!*.css
+!*.asm
+!*.vcxproj
