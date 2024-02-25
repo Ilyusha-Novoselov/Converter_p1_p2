@@ -46,6 +46,11 @@ namespace Converter{
 			if (j == 20)
 			{
 				std::string current_number = _ed.GetNumber();
+                size_t dotPos = current_number.find('.');
+                if(dotPos != std::string::npos)
+                    acc = current_number.size() - dotPos - 1;
+                else
+                    acc = 0;
 				double r = Converter_P_10::Do(current_number, _Pin);
                 result = Converter_10_P::Do(r, _Pout, acc);
 				_st = Converted;

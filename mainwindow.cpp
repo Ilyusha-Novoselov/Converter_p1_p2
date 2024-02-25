@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     _control = new Converter::Control;
+    _previousValueSlider = 10;
 
     connect(ui->Edit_1, &InputLineEdit::signal_key_input_edit, this, &MainWindow::slot_key_input_edit);
     connect(_control, &Converter::Control::signal_number_changed, this, &MainWindow::slot_number_changed);
@@ -29,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent)
         slider->setTickInterval(1);
     }
     ui->Slider_2->setValue(16);
+    ui->Button_0->setEnabled(false);
+    ui->Button_Comma->setEnabled(false);
+    ui->Button_Execut->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -63,6 +67,12 @@ void MainWindow::SliderValueChanged(int value)
 {
     if(qobject_cast<QSlider *>(sender())->objectName() == "Slider_1")
     {
+        if(value < _previousValueSlider)
+        {
+            QString number = QString::fromStdString(_control->DoCommand(19));
+            ui->Edit_1->setText(number);
+            ui->Edit_2->setText(number);
+        }
         ui->Edit_p1->setText(QString::number(value));
         ui->Edit_2->setText("");
         _control->set_state(Converter::Editing);
@@ -75,11 +85,15 @@ void MainWindow::SliderValueChanged(int value)
             wchar_t wchar = unicodeValue;
             char ch = static_cast<char>(wchar);
             int j = Converter::Converter_P_10::char_to_num(ch);
-            if(j >= 1 && j <= 15 && j >= _control->get_Pin() && button->text() != "BS" && button->text() != "CE")
-                button->setEnabled(false);
-            else
-                button->setEnabled(true);
+            if(button->text() != "0" && button->text() != "." && button->text() != "=")
+            {
+                if(j >= 1 && j <= 15 && j >= _control->get_Pin() && button->text() != "BS" && button->text() != "CE")
+                    button->setEnabled(false);
+                else
+                    button->setEnabled(true);
+            }
         }
+        _previousValueSlider = value;
     }
     if(qobject_cast<QSlider *>(sender())->objectName() == "Slider_2")
     {
@@ -109,13 +123,19 @@ void MainWindow::slot_key_input_edit(QString &text)
 
 void MainWindow::slot_number_changed(std::string& number)
 {
-    if(number.empty())
-        ui->Button_0->setEnabled(false);
-    else
-        ui->Button_0->setEnabled(true);
-
     if(number.empty() || number.find('.') != std::string::npos)
         ui->Button_Comma->setEnabled(false);
     else
         ui->Button_Comma->setEnabled(true);
+
+    if(number.empty())
+    {
+        ui->Button_Execut->setEnabled(false);
+        ui->Button_0->setEnabled(false);
+    }
+    else
+    {
+        ui->Button_0->setEnabled(true);
+        ui->Button_Execut->setEnabled(true);
+    }
 }
