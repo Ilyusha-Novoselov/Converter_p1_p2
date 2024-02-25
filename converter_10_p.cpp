@@ -14,6 +14,8 @@ namespace Converter {
 	std::string Converter_10_P::int_to_P(int n, int p)
 	{
 		std::string result;
+        if(n == 0)
+            return "0";
 		while (n > 0) 
 		{
 			char number = int_to_char(n % p);
