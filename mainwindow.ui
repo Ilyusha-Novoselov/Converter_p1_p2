@@ -209,6 +209,9 @@
       </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="Button_0">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -287,6 +290,9 @@
       </item>
       <item row="4" column="0">
        <widget class="QPushButton" name="Button_Comma">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
           <horstretch>0</horstretch>

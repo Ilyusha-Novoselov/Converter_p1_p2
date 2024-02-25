@@ -5,7 +5,6 @@
 #include <algorithm>
 
 #include "converter_10_p.h"
-#include "converter_p_10.h"
 
 namespace Converter {
 	class Editor {
@@ -14,13 +13,13 @@ namespace Converter {
 		inline void AddDigit(int n) { _number.push_back(Converter_10_P::int_to_char(n)); };
 
 		// Добавить ноль
-		inline void AddZero() { _number += _zero; };
+        inline void AddZero() { if (!_number.empty()) _number += _zero; };
 
-		// Добавить разделитель
-		inline void AddDelim() { _number += _delim; };
+        // Добавить разделитель
+        inline void AddDelim() { if (_number.find('.') == std::string::npos && !_number.empty()) _number += _delim; };
 
-		// Удалить символ
-		inline void Bs() { _number.pop_back(); };
+        // Удалить символ
+        inline void Bs() { if(!_number.empty()) _number.pop_back(); };
 
 		// Очистить редактируемое число
 		inline void Clear() { _number.clear(); };
@@ -31,7 +30,7 @@ namespace Converter {
             if(j == -1)
                 return _number;
 
-			if (j <= 15)
+            if (j <= 15 && j != 0)
 			{
 				AddDigit(j);
 				return _number;
@@ -39,28 +38,24 @@ namespace Converter {
 
 			switch (j)
 			{
-			case 16:
+            case 0:
 				AddZero();
 				return _number;
-				break;
 
 			case 17:
 				AddDelim();
 				return _number;
-				break;
 
 			case 18:
 				Bs();
 				return _number;
-				break;
 
 			case 19:
 				Clear();
 				return _number;
-				break;
 
 			default:
-				break;
+                return _number;
 			}
 		}
 

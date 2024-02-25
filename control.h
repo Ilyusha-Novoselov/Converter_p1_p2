@@ -3,17 +3,25 @@
 
 #include <string>
 #include <vector>
+#include <QObject>
 
 #include "editor.h"
 #include "history.h"
+#include "converter_p_10.h"
 
-namespace Converter {
+namespace Converter{
 	enum State {
 		Editing,
 		Converted
 	};
 
-	class Control {
+    class Control : public QObject {
+
+        Q_OBJECT
+
+    signals:
+        void signal_number_changed(std::string& number);
+
 	public:
 		// Конструктор
 		Control() : _Pin(10), _Pout(16), acc(3), _ed(), _his(), _st(Editing) {};
@@ -34,21 +42,29 @@ namespace Converter {
 
 		std::string DoCommand(int j) 
 		{
+            std::string result;
 			if (j == 20)
 			{
 				std::string current_number = _ed.GetNumber();
 				double r = Converter_P_10::Do(current_number, _Pin);
-				std::string res = Converter_10_P::Do(r, _Pout, acc);
+                result = Converter_10_P::Do(r, _Pout, acc);
 				_st = Converted;
-				_his.AddRecord(_Pin, _Pout, current_number, res);
-				return res;
+                _his.AddRecord(_Pin, _Pout, current_number, result);
+                emit signal_number_changed(result);
+                return result;
 			}
 			else 
 			{
                 if(j >= 1 && j <= 15 && j >= _Pin)
-                    return _ed.DoEdit(-1);
+                {
+                    result = _ed.DoEdit(-1);
+                    emit signal_number_changed(result);
+                    return result;
+                }
                 _st = Editing;
-                return _ed.DoEdit(j);
+                result = _ed.DoEdit(j);
+                emit signal_number_changed(result);
+                return result;
 			}
 		}
 
