@@ -7,14 +7,14 @@
 namespace Converter {
 	class Converter_P_10 {
 	public:
-		// Преобразовать цифру в число
+		// РџСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ С†РёС„СЂСѓ РІ С‡РёСЃР»Рѕ
 		static double char_to_num(char ch);
 
-		// Преобразовать из с.сч. с основанием p в с.сч. с основанием 10
+		// РџСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ РёР· СЃ.СЃС‡. СЃ РѕСЃРЅРѕРІР°РЅРёРµРј p РІ СЃ.СЃС‡. СЃ РѕСЃРЅРѕРІР°РЅРёРµРј 10
 		static double Do(std::string& P_num, int P);
 
 	private:
-		// Преобразовать строку в число
+		// РџСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ СЃС‚СЂРѕРєСѓ РІ С‡РёСЃР»Рѕ
 		static double convert(std::string& P_num, int P, double weight);
 	};
 }

@@ -23,7 +23,7 @@ namespace Converter{
         void signal_number_changed(std::string& number);
 
 	public:
-		// Конструктор
+		// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 		Control() : _Pin(10), _Pout(16), acc(3), _ed(), _his(), _st(Editing) {};
 
 		inline int get_Pin() const { return _Pin; };
@@ -74,22 +74,22 @@ namespace Converter{
 		}
 
 	private:
-		// С.сч. исходного числа
+		// РЎ.СЃС‡. РёСЃС…РѕРґРЅРѕРіРѕ С‡РёСЃР»Р°
 		int _Pin;
 
-		// С.сч результата
+		// РЎ.СЃС‡ СЂРµР·СѓР»СЊС‚Р°С‚Р°
 		int _Pout;
 
-		// Точность результата
+		// РўРѕС‡РЅРѕСЃС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚Р°
 		int acc;
 
-		// Редактор
+		// Р РµРґР°РєС‚РѕСЂ
 		Editor _ed;
 
-		// История
+		// РСЃС‚РѕСЂРёСЏ
 		History _his;
 
-		// Состояние конвертера
+		// РЎРѕСЃС‚РѕСЏРЅРёРµ РєРѕРЅРІРµСЂС‚РµСЂР°
 		State _st;
 	};
 }

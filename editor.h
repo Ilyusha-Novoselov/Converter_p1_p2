@@ -9,22 +9,22 @@
 namespace Converter {
 	class Editor {
 	public:
-		// Добавить цифру
+		// Р”РѕР±Р°РІРёС‚СЊ С†РёС„СЂСѓ
 		inline void AddDigit(int n) { _number.push_back(Converter_10_P::int_to_char(n)); };
 
-		// Добавить ноль
+		// Р”РѕР±Р°РІРёС‚СЊ РЅРѕР»СЊ
         inline void AddZero() { if (!_number.empty()) _number += _zero; };
 
-        // Добавить разделитель
+        // Р”РѕР±Р°РІРёС‚СЊ СЂР°Р·РґРµР»РёС‚РµР»СЊ
         inline void AddDelim() { if (_number.find('.') == std::string::npos && !_number.empty()) _number += _delim; };
 
-        // Удалить символ
+        // РЈРґР°Р»РёС‚СЊ СЃРёРјРІРѕР»
         inline void Bs() { if(!_number.empty()) _number.pop_back(); };
 
-		// Очистить редактируемое число
+		// РћС‡РёСЃС‚РёС‚СЊ СЂРµРґР°РєС‚РёСЂСѓРµРјРѕРµ С‡РёСЃР»Рѕ
 		inline void Clear() { _number.clear(); };
 
-		// Вызов нужной команды
+		// Р’С‹Р·РѕРІ РЅСѓР¶РЅРѕР№ РєРѕРјР°РЅРґС‹
 		std::string DoEdit(int j) 
 		{
             if(j == -1)
@@ -59,17 +59,17 @@ namespace Converter {
 			}
 		}
 
-		// Получить отредактированное число
+		// РџРѕР»СѓС‡РёС‚СЊ РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРЅРѕРµ С‡РёСЃР»Рѕ
 		inline std::string GetNumber() { return _number; };
 
 	private:
-		// Поле для хранения редактируемого числа
+		// РџРѕР»Рµ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ СЂРµРґР°РєС‚РёСЂСѓРµРјРѕРіРѕ С‡РёСЃР»Р°
 		std::string _number = "";
 
-		// Разделитель целой и дробной части
+		// Р Р°Р·РґРµР»РёС‚РµР»СЊ С†РµР»РѕР№ Рё РґСЂРѕР±РЅРѕР№ С‡Р°СЃС‚Рё
 		const std::string _delim = ".";
 
-		// Ноль
+		// РќРѕР»СЊ
 		const std::string _zero = "0";
 	};
 }

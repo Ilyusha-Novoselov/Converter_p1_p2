@@ -19,10 +19,6 @@ protected:
     {
         QString text = event->text();
         emit signal_key_input_edit(text);
-
-
-        // Передаем событие базовому классу для обработки стандартным образом
-        //QLineEdit::keyPressEvent(event);
     }
 };
 

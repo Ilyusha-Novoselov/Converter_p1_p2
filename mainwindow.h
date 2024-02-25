@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QScrollArea>
+#include <QTimer>
 #include <cctype>
 
 #include "control.h"
@@ -18,6 +20,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void addHistory();
 
 public slots:
     void onButtonClicked();

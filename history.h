@@ -15,27 +15,27 @@ namespace Converter {
 
 	class History {
 	public:
-		// Конструктор
+		// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 		History() : _allRecords() {};
 
-		// Добавление записи
+		// Р”РѕР±Р°РІР»РµРЅРёРµ Р·Р°РїРёСЃРё
 		inline void AddRecord(int p_1, int p_2, std::string& number_1, std::string& number_2) { 
 			//std::cout << number_1;
 			Record record = { p_1, p_2, number_1, number_2 }; 
 			_allRecords.push_back(record); 
 		};
 
-		// Очистка истории
+		// РћС‡РёСЃС‚РєР° РёСЃС‚РѕСЂРёРё
 		inline void Clear() { _allRecords.clear(); };
 
-		// Текущий размер списка в числе записей
+		// РўРµРєСѓС‰РёР№ СЂР°Р·РјРµСЂ СЃРїРёСЃРєР° РІ С‡РёСЃР»Рµ Р·Р°РїРёСЃРµР№
 		inline size_t Count() { return _allRecords.size(); };
 
-		// Получить список истории
+		// РџРѕР»СѓС‡РёС‚СЊ СЃРїРёСЃРѕРє РёСЃС‚РѕСЂРёРё
 		inline std::vector<Record> get_allRecord() { return _allRecords; };
 
 	private:
-		// Вектор, содержащий всю историю операций
+		// Р’РµРєС‚РѕСЂ, СЃРѕРґРµСЂР¶Р°С‰РёР№ РІСЃСЋ РёСЃС‚РѕСЂРёСЋ РѕРїРµСЂР°С†РёР№
 		std::vector<Record> _allRecords;
 	};
 }
