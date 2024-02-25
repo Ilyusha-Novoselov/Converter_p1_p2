@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableWidget->setColumnCount(4);
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget->setHorizontalHeaderLabels({"P1", "Input", "P2", "Output"});
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     QString htmlText = R"(
         <html>
@@ -59,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
 <b>История:</b>
 -P1 - с.сч. исходного числа
 -Input - исходное число
--P2 - с.сч итогового числа
+-P2 - с.сч. итогового числа
 -Output - итоговое число
             </body>
         </html>)";
@@ -119,7 +120,6 @@ void MainWindow::SliderValueChanged(int value)
             ui->Edit_2->setText(number);
         }
         ui->Edit_p1->setText(QString::number(value));
-        ui->Edit_2->setText("");
         _control->set_state(Converter::Editing);
         _control->set_Pin(value);
 
@@ -173,6 +173,8 @@ void MainWindow::slot_key_input_edit(QString &text)
 
 void MainWindow::slot_number_changed(std::string& number)
 {
+    if(_control->get_state() == Converter::Editing)
+        ui->Edit_2->setText("");
     if(number.empty() || number.find('.') != std::string::npos)
         ui->Button_Comma->setEnabled(false);
     else

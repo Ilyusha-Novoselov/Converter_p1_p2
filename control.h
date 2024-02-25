@@ -55,7 +55,7 @@ namespace Converter{
                 result = Converter_10_P::Do(r, _Pout, acc);
 				_st = Converted;
                 _his.AddRecord(_Pin, _Pout, current_number, result);
-                emit signal_number_changed(result);
+                emit signal_number_changed(current_number);
                 return result;
 			}
 			else 
