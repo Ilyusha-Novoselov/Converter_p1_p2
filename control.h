@@ -46,19 +46,24 @@ namespace Converter{
 			if (j == 20)
 			{
 				std::string current_number = _ed.GetNumber();
-                size_t dotPos = current_number.find('.');
-                if(dotPos != std::string::npos)
-                    acc = current_number.size() - dotPos - 1;
+                if(!current_number.empty())
+                {
+                    size_t dotPos = current_number.find('.');
+                    if(dotPos != std::string::npos)
+                        acc = current_number.size() - dotPos - 1;
+                    else
+                        acc = 0;
+                    double r = Converter_P_10::Do(current_number, _Pin);
+                    result = Converter_10_P::Do(r, _Pout, acc);
+                    _st = Converted;
+                    _his.AddRecord(_Pin, _Pout, current_number, result);
+                    emit signal_number_changed(current_number);
+                    return result;
+                }
                 else
-                    acc = 0;
-				double r = Converter_P_10::Do(current_number, _Pin);
-                result = Converter_10_P::Do(r, _Pout, acc);
-				_st = Converted;
-                _his.AddRecord(_Pin, _Pout, current_number, result);
-                emit signal_number_changed(current_number);
-                return result;
-			}
-			else 
+                    return "";
+            }
+            else
 			{
                 if(j >= 1 && j <= 15 && j >= _Pin)
                 {

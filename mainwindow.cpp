@@ -29,7 +29,6 @@ MainWindow::MainWindow(QWidget *parent)
         slider->setTickInterval(1);
     }
     ui->Slider_2->setValue(16);
-    ui->Button_0->setEnabled(false);
     ui->Button_Comma->setEnabled(false);
     ui->Button_Execut->setEnabled(false);
 
@@ -76,12 +75,15 @@ MainWindow::~MainWindow()
 void MainWindow::addHistory()
 {
     auto history = _control->get_history();
-    int rowCount = ui->tableWidget->rowCount();
-    ui->tableWidget->insertRow(rowCount);
-    ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(QString::number(history.rbegin()->p_1)));
-    ui->tableWidget->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(history.rbegin()->number_1)));
-    ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(QString::number(history.rbegin()->p_2)));
-    ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(QString::fromStdString(history.rbegin()->number_2)));
+    if(!history.empty())
+    {
+        int rowCount = ui->tableWidget->rowCount();
+        ui->tableWidget->insertRow(rowCount);
+        ui->tableWidget->setItem(rowCount, 0, new QTableWidgetItem(QString::number(history.rbegin()->p_1)));
+        ui->tableWidget->setItem(rowCount, 1, new QTableWidgetItem(QString::fromStdString(history.rbegin()->number_1)));
+        ui->tableWidget->setItem(rowCount, 2, new QTableWidgetItem(QString::number(history.rbegin()->p_2)));
+        ui->tableWidget->setItem(rowCount, 3, new QTableWidgetItem(QString::fromStdString(history.rbegin()->number_2)));
+    }
 }
 
 void MainWindow::onButtonClicked()
@@ -113,15 +115,21 @@ void MainWindow::SliderValueChanged(int value)
 {
     if(qobject_cast<QSlider *>(sender())->objectName() == "Slider_1")
     {
+        _control->set_Pin(value);
         if(value < _previousValueSlider)
         {
             QString number = QString::fromStdString(_control->DoCommand(19));
             ui->Edit_1->setText(number);
             ui->Edit_2->setText(number);
         }
+        else
+        {
+            QString result = QString::fromStdString(_control->DoCommand(20));
+            ui->Edit_2->setText(result);
+            addHistory();
+        }
         ui->Edit_p1->setText(QString::number(value));
-        _control->set_state(Converter::Editing);
-        _control->set_Pin(value);
+
 
         QList<QPushButton *> buttons = findChildren<QPushButton *>();
         for (QPushButton *button : buttons)
@@ -143,8 +151,8 @@ void MainWindow::SliderValueChanged(int value)
     }
     if(qobject_cast<QSlider *>(sender())->objectName() == "Slider_2")
     {
-        ui->Edit_p2->setText(QString::number(value));
         _control->set_Pout(value);
+        ui->Edit_p2->setText(QString::number(value));
         if(_control->get_state() == Converter::Converted)
         {
             QString result = QString::fromStdString(_control->DoCommand(20));
@@ -159,10 +167,22 @@ void MainWindow::SliderValueChanged(int value)
 
 void MainWindow::slot_key_input_edit(QString &text)
 {
+    if(text == "\r")
+    {
+        ui->Edit_2->setText(QString::fromStdString(_control->DoCommand(20)));
+        addHistory();
+        return;
+    }
     if(text == ".")
+    {
         ui->Edit_1->setText(QString::fromStdString(_control->DoCommand(17)));
+        return;
+    }
     if(text == "\b")
+    {
         ui->Edit_1->setText(QString::fromStdString(_control->DoCommand(18)));
+        return;
+    }
     ushort unicodeValue = text[0].unicode();
     wchar_t wchar = unicodeValue;
     char ch = static_cast<char>(wchar);
@@ -181,13 +201,7 @@ void MainWindow::slot_number_changed(std::string& number)
         ui->Button_Comma->setEnabled(true);
 
     if(number.empty())
-    {
         ui->Button_Execut->setEnabled(false);
-        ui->Button_0->setEnabled(false);
-    }
     else
-    {
-        ui->Button_0->setEnabled(true);
         ui->Button_Execut->setEnabled(true);
-    }
 }

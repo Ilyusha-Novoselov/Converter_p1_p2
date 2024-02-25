@@ -7,7 +7,6 @@
 #include <cctype>
 
 #include "control.h"
-#include "input_line_edit.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
