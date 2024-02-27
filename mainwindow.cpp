@@ -9,9 +9,11 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Конвертер");
     _control = new Converter::Control;
     _previousValueSlider = 10;
+    ui->Edit_1->setFocus(Qt::OtherFocusReason);
 
     connect(ui->Edit_1, &InputLineEdit::signal_key_input_edit, this, &MainWindow::slot_key_input_edit);
     connect(_control, &Converter::Control::signal_number_changed, this, &MainWindow::slot_number_changed);
+    connect(this, &MainWindow::set_focus, ui->Edit_1, &InputLineEdit::set_focus);
 
     QList<QPushButton *> buttons = findChildren<QPushButton *>();
     for (QPushButton *button : buttons)
@@ -37,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableWidget->setHorizontalHeaderLabels({"P1", "Input", "P2", "Output"});
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+
     QString htmlText = R"(
         <html>
             <body style='white-space: pre; font-family: "Courier New", Courier, monospace; font-size: 12pt;'>
@@ -53,8 +56,10 @@ MainWindow::MainWindow(QWidget *parent)
 -Выбор с.сч. от 2 до 16
 
 <b>Клавиатура:</b>
--Доступен ввод только для сим-
-волов [0-F] и [.]
+-Доступен ввод для символов
+[0-F] и [.]
+-BS удалить символ справа
+-DEL очистить поле ввода
 
 <b>История:</b>
 -P1 - с.сч. исходного числа
@@ -167,10 +172,18 @@ void MainWindow::SliderValueChanged(int value)
 
 void MainWindow::slot_key_input_edit(QString &text)
 {
+    if(text == "\u007F")
+    {
+        QString number = QString::fromStdString(_control->DoCommand(19));
+        ui->Edit_1->setText(number);
+        ui->Edit_2->setText(number);
+    }
     if(text == "\r")
     {
-        ui->Edit_2->setText(QString::fromStdString(_control->DoCommand(20)));
-        addHistory();
+        auto result = QString::fromStdString(_control->DoCommand(20));
+        ui->Edit_2->setText(result);
+        if(!result.isEmpty())
+            addHistory();
         return;
     }
     if(text == ".")
@@ -183,12 +196,16 @@ void MainWindow::slot_key_input_edit(QString &text)
         ui->Edit_1->setText(QString::fromStdString(_control->DoCommand(18)));
         return;
     }
-    ushort unicodeValue = text[0].unicode();
-    wchar_t wchar = unicodeValue;
-    char ch = static_cast<char>(wchar);
-    if (ch >= 'a' && ch <= 'z')
-        ch = toupper(ch);
-    ui->Edit_1->setText(QString::fromStdString(_control->DoCommand(Converter::Converter_P_10::char_to_num(ch))));
+    if(!text.isEmpty())
+        if ((text[0] >= '0' && text[0]  <= '9') || (text[0]  >= 'a' && text[0]  <= 'f'))
+        {
+            ushort unicodeValue = text[0].unicode();
+            wchar_t wchar = unicodeValue;
+            char ch = static_cast<char>(wchar);
+            if (ch >= 'a' && ch <= 'z')
+                ch = toupper(ch);
+            ui->Edit_1->setText(QString::fromStdString(_control->DoCommand(Converter::Converter_P_10::char_to_num(ch))));
+        }
 }
 
 void MainWindow::slot_number_changed(std::string& number)
@@ -205,3 +222,12 @@ void MainWindow::slot_number_changed(std::string& number)
     else
         ui->Button_Execut->setEnabled(true);
 }
+
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    if(index == 0)
+        emit set_focus(true);
+    else
+        emit set_focus(false);
+}
+

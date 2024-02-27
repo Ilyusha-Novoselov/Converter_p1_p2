@@ -42,6 +42,7 @@ background-color: #84adea;
 }
 
 QPushButton{
+	font-size: 13pt;
 	background-color:#0085c9;
     color: #fff;
     border: none;
@@ -59,6 +60,11 @@ QPushButton:pressed{
 
 QPushButton:disabled{
 	background-color: #474747;
+}
+
+QLineEdit {
+	font-size: 15pt;
+	border-radius: 5px;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -94,7 +100,7 @@ QPushButton:disabled{
           <item>
            <widget class="QLineEdit" name="Edit_p1">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -143,14 +149,14 @@ QPushButton:disabled{
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Основание с.сч. исходного числа</string>
+             <string>Основание с.сч. результата           </string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QLineEdit" name="Edit_p2">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>

@@ -43,9 +43,9 @@ namespace Converter{
 		std::string DoCommand(int j) 
 		{
             std::string result;
+            std::string current_number = _ed.GetNumber();
 			if (j == 20)
 			{
-				std::string current_number = _ed.GetNumber();
                 if(!current_number.empty())
                 {
                     size_t dotPos = current_number.find('.');
@@ -68,12 +68,19 @@ namespace Converter{
                 if(j >= 1 && j <= 15 && j >= _Pin)
                 {
                     result = _ed.DoEdit(-1);
-                    emit signal_number_changed(result);
+                    if(result != current_number)
+                    {
+                        _st = Editing;
+                        emit signal_number_changed(result);
+                    }
                     return result;
                 }
-                _st = Editing;
                 result = _ed.DoEdit(j);
-                emit signal_number_changed(result);
+                if(result != current_number)
+                {
+                    _st = Editing;
+                    emit signal_number_changed(result);
+                }
                 return result;
 			}
 		}
