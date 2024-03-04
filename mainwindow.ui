@@ -17,55 +17,127 @@
    <string notr="true">*{
 font-family: century gothic;
 font-size: 15px;
+color: rgb(255,255,255);
 }
 
-#MainWindow{
-background-color:   rgb(110, 145, 194);
+#MainWindow {
+background: QLinearGradient(spread:pad, x1: 1,  y1: 1, 
+                            x2: 0, y2: 0, 
+                            stop: 0   rgba(81, 0, 135, 255), 
+                            stop: 0.427447 rgba(41, 61, 132, 235), 
+                            stop: 1   rgba(155, 79, 165, 255));
 }
 
-QTabBar::tab{
-background: #50698d;
+QLabel  {
+	background: none;
+	border: none;
 }
 
-QTabBar::tab:selected{
-background:  #84adea;
+QLineEdit {
+	font-size: 20px;
+	background-color: rgba(255, 255, 255, 30);
+	border: 1px solid rgba(255, 255, 255, 40);
+	border-radius: 5px;
+}
+
+QTextCursor {
+	color: white;
 }
 
 QTabWidget::pane
 {
 	border: 1px;
-    background: #84adea;
+	background-color: rgba(255, 255, 255, 30);
+	border: 1px solid rgba(255, 255, 255, 30);
 }
 
-QTabWidget{
-background-color: #84adea;
+QTabBar::tab{
+background-color: rgba(255, 255, 255, 30);
+}
+
+QTabBar::tab:selected{
+background-color: rgba(255, 255, 255, 80);
 }
 
 QPushButton{
 	font-size: 13pt;
-	background-color:#0085c9;
-    color: #fff;
-    border: none;
+	background-color: rgba(255, 255, 255, 40);
+	border: 1px solid rgba(255, 255, 255, 50);
     border-radius: 5px;
     padding: 10px 20px;
 }
 
 QPushButton:hover{
-background-color: #45a049;
+background-color: rgba(255, 255, 255, 50);
 }
 
 QPushButton:pressed{
-	background-color: #367d39;
+	background-color: rgba(255, 255, 255, 80);
 }
 
 QPushButton:disabled{
-	background-color: #474747;
+	background-color: rgba(255, 255, 255, 5);
 }
 
-QLineEdit {
-	font-size: 15pt;
-	border-radius: 5px;
-}</string>
+QTableWidget {
+    gridline-color: rgba(255, 255, 255, 40);
+    background-color: transparent;
+	border: none;
+}
+
+QTableWidget::item:selected {
+    background-color: rgba(255, 255, 255, 80); /* Цвет выделенной ячейки */
+}
+
+QTableWidget::item:hover {
+    background-color: rgba(255, 255, 255, 50); /* Цвет под курсором */
+}
+
+QHeaderView {
+background-color: transparent;
+}
+
+QHeaderView::section{
+background-color: transparent;
+border-style: none;
+border-bottom: 1px solid rgba(255, 255, 255, 40);
+border-right: 1px solid rgba(255, 255, 255, 40);
+}
+
+QTableView QTableCornerButton::section {
+     background-color: transparent;
+ }
+
+QScrollBar:vertical {
+    border: none;
+    background-color: transparent;
+    width: 10px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: rgba(255, 255, 255, 80); /* Цвет ползунка вертикального скролла */
+}
+
+QScrollBar::handle:vertical:hover {
+    background: rgba(255, 255, 255, 100); /* Цвет ползунка вертикального скролла при наведении */
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    border: none;
+    background-color: transparent;
+    height: 0px;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: rgba(255, 255, 255, 30); /* Цвет фона вне ползунка вертикального скролла */
+}
+
+QTextEdit {
+background: transparent;
+border: none;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
