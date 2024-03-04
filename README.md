@@ -17,10 +17,11 @@
 ![Diagramm](https://github.com/Ilyusha-Novoselov/Converter_p1_p2/assets/119160923/b0d6dcaa-43e5-43a2-9fdc-0fdc64b89fb2)
 
 # 5. Скриншоты работы приложения
-* ![image](https://github.com/Ilyusha-Novoselov/Converter_p1_p2/assets/119160923/0a4b6a28-aac9-42ff-9c47-ac624aae4ad7)
-* ![image](https://github.com/Ilyusha-Novoselov/Converter_p1_p2/assets/119160923/1be52479-e00d-4b9f-872c-a9a7495c9423)
-* ![image](https://github.com/Ilyusha-Novoselov/Converter_p1_p2/assets/119160923/a9b0d47f-7771-46f8-9d0d-171b673d72a2)
-* ![image](https://github.com/Ilyusha-Novoselov/Converter_p1_p2/assets/119160923/deb4f41c-d601-4539-a812-4bea2378f09a)
+* ![image](https://github.com/Ilyusha-Novoselov/Converter_p1_p2/assets/119160923/d31c3e97-b293-4d0d-a9a6-377c00d8754f)
+* ![image](https://github.com/Ilyusha-Novoselov/Converter_p1_p2/assets/119160923/0d7ea502-d091-4cab-b885-1b1c9ac015f3)
+* ![image](https://github.com/Ilyusha-Novoselov/Converter_p1_p2/assets/119160923/1fd56638-df0b-4670-ad2c-b7d405e5ec46)
+* ![image](https://github.com/Ilyusha-Novoselov/Converter_p1_p2/assets/119160923/b5add1b5-608b-4625-9427-fa582039f6d4)
+
 
 
 
