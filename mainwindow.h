@@ -37,6 +37,5 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Converter::Control *_control;
-    int _previousValueSlider;
 };
 #endif // MAINWINDOW_H

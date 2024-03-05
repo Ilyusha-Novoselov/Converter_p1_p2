@@ -3,13 +3,15 @@
 
 #include <QLineEdit>
 #include <QKeyEvent>
+#include <QPainter>
+#include <QTimer>
 
 class InputLineEdit : public QLineEdit
 {
     Q_OBJECT
 
 public:
-    InputLineEdit(QWidget *parent = nullptr) : QLineEdit(parent), _focus(false) {}
+    InputLineEdit(QWidget *parent = nullptr) : QLineEdit(parent), _focus(true) {};
 
 public slots:
     void set_focus(bool focus){ _focus = focus; if(_focus) setFocus(); else clearFocus(); };

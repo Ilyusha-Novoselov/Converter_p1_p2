@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowTitle("Конвертер");
     _control = new Converter::Control;
-    _previousValueSlider = 10;
     ui->Edit_1->setFocus(Qt::OtherFocusReason);
 
     connect(ui->Edit_1, &InputLineEdit::signal_key_input_edit, this, &MainWindow::slot_key_input_edit);
@@ -121,20 +120,10 @@ void MainWindow::SliderValueChanged(int value)
     if(qobject_cast<QSlider *>(sender())->objectName() == "Slider_1")
     {
         _control->set_Pin(value);
-        if(value < _previousValueSlider)
-        {
-            QString number = QString::fromStdString(_control->DoCommand(19));
-            ui->Edit_1->setText(number);
-            ui->Edit_2->setText(number);
-        }
-        else
-        {
-            QString result = QString::fromStdString(_control->DoCommand(20));
-            ui->Edit_2->setText(result);
-            addHistory();
-        }
+        QString number = QString::fromStdString(_control->DoCommand(19));
+        ui->Edit_1->setText(number);
+        ui->Edit_2->setText(number);
         ui->Edit_p1->setText(QString::number(value));
-
 
         QList<QPushButton *> buttons = findChildren<QPushButton *>();
         for (QPushButton *button : buttons)
@@ -152,7 +141,6 @@ void MainWindow::SliderValueChanged(int value)
                     button->setEnabled(true);
             }
         }
-        _previousValueSlider = value;
     }
     if(qobject_cast<QSlider *>(sender())->objectName() == "Slider_2")
     {

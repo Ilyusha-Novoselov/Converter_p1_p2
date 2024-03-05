@@ -53,8 +53,9 @@ namespace Converter{
                         acc = current_number.size() - dotPos - 1;
                     else
                         acc = 0;
+                    int k = (int)ceil(log(_Pin) / log(_Pout));
                     double r = Converter_P_10::Do(current_number, _Pin);
-                    result = Converter_10_P::Do(r, _Pout, acc);
+                    result = Converter_10_P::Do(r, _Pout, acc * k);
                     _st = Converted;
                     _his.AddRecord(_Pin, _Pout, current_number, result);
                     emit signal_number_changed(current_number);

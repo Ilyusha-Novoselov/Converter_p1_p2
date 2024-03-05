@@ -43,12 +43,9 @@ namespace Converter {
 				return "";
 			n -= int_part;
 			c--;
-		}
-		while (c > 0)
-		{
-			result.push_back('0');
-			c--;
-		}
+        }
+        while (!result.empty() && result.back() == '0')
+            result.pop_back();
 		return result;
 	}
 
