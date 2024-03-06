@@ -13,7 +13,7 @@ namespace Converter {
 		inline void AddDigit(int n) { _number.push_back(Converter_10_P::int_to_char(n)); };
 
 		// Добавить ноль
-        inline void AddZero() { _number += _zero; };
+        inline void AddZero() { if(_number.empty()) _number += _zero + "."; else _number += _zero; };
 
         // Добавить разделитель
         inline void AddDelim() { if (_number.find('.') == std::string::npos && !_number.empty()) _number += _delim; };
